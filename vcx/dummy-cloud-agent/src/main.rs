@@ -42,8 +42,8 @@ pub(crate) mod indy;
 pub(crate) mod server;
 
 fn main() {
-    indy::logger::set_default_logger(None)
-        .expect("Can't init indy logger");
+//    indy::logger::set_default_logger(None)
+//        .expect("Can't init indy logger");
 
     env_logger::try_init()
         .expect("Can't init env logger");
