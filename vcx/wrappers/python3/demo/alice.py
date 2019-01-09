@@ -14,12 +14,15 @@ from vcx.state import State
 
 # logging.basicConfig(level=logging.DEBUG) uncomment to get logs
 
+import random
+r = random.randint(0, 10000)
+
 provisionConfig = {
     'agency_url': 'http://localhost:8080',
     'agency_did': 'VsKV7grR1BUE29mG2Fm2kX',
     'agency_verkey': 'Hezce2UWMZ3wUhVkh2LfKSs8nDzWwzs2Win7EzNN3YaR',
-    'wallet_name': 'alice_wallet',
-    'wallet_key': '123',
+    'wallet_name': 'alice_wallet{}'.format(r),
+    'wallet_key': '123{}'.format(r),
     'payment_method': 'null',
     'enterprise_seed': '000000000000000000000000Trustee1'
 }

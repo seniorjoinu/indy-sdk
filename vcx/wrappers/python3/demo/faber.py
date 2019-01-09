@@ -23,12 +23,16 @@ from vcx.state import State, ProofState
 # 'wallet_name': name for newly created encrypted wallet
 # 'wallet_key': encryption key for encoding wallet
 # 'payment_method': method that will be used for payments
+
+import random
+r = random.randint(0, 10000)
+
 provisionConfig = {
   'agency_url':'http://localhost:8080',
   'agency_did':'VsKV7grR1BUE29mG2Fm2kX',
   'agency_verkey':'Hezce2UWMZ3wUhVkh2LfKSs8nDzWwzs2Win7EzNN3YaR',
-  'wallet_name':'faber_wallet',
-  'wallet_key':'123',
+  'wallet_name':'faber_wallet{}'.format(r),
+  'wallet_key':'123{}'.format(r),
   'payment_method': 'null',
   'enterprise_seed':'000000000000000000000000Trustee1'
 }
