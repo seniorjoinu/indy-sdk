@@ -8,8 +8,9 @@ import android.widget.Button;
 
 import com.evernym.sdk.vcx.LibVcx;
 import com.evernym.sdk.vcx.VcxException;
-import com.evernym.sdk.vcx.api.vcx.Vcx;
-import com.evernym.sdk.vcx.api.vcx.Utils;
+//import com.evernym.sdk.vcx.api.vcx.Vcx;
+import com.evernym.sdk.vcx.utils.UtilsApi;
+import com.evernym.sdk.vcx.vcx.VcxApi;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -107,6 +108,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        System.setProperty("jna.debug_load", "true");
+
+//        System.loadLibrary("vcx");
+
         if (!LibVcx.isInitialized()) {
             LibVcx.init();
         }
@@ -114,14 +119,14 @@ public class MainActivity extends AppCompatActivity {
         final Button provisionButton = findViewById(R.id.prov);
 
         provisionButton.setOnClickListener(v -> {
-            String prov_res = Utils.vcxProvisionAgent(PROVISIONING_CONFIG);
+            String prov_res = UtilsApi.vcxProvisionAgent(PROVISIONING_CONFIG);
             Log.d(TAG, "Prov test: " + prov_res);
         });
         final Button provisionAsyncButton = findViewById(R.id.prov_async);
         provisionAsyncButton.setOnClickListener(v -> {
             Log.d(TAG, "onClick: Provision Async clicked");
             try {
-                String result = Utils.vcxProvisionAgenctAsync(PROVISIONING_CONFIG).get();
+                String result = UtilsApi.vcxAgentProvisionAsync(PROVISIONING_CONFIG).get();
             } catch (VcxException | InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
@@ -129,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
         final Button initButton = findViewById(R.id.init);
         initButton.setOnClickListener(v -> {
             try {
-                int result = Vcx.vcxInitWithJsonConfig(PROVISIONING_CONFIG).get();
-                Log.d(TAG, "result of init with config json: " + Vcx.vcxErrorMessage(result));
+                int result = VcxApi.vcxInitWithConfig(PROVISIONING_CONFIG).get();
+                Log.d(TAG, "result of init with config json: " + VcxApi.vcxErrorCMessage(result));
             } catch (VcxException | InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
@@ -139,8 +144,8 @@ public class MainActivity extends AppCompatActivity {
         initWithConfigFileButton.setOnClickListener(v -> {
             createConfigFiles();
             try {
-                int result = Vcx.vcxInit(vcx_config.getPath()).get();
-                Log.d(TAG, "result of init with config file: " + Vcx.vcxErrorMessage(result));
+                int result = VcxApi.vcxInit(vcx_config.getPath()).get();
+                Log.d(TAG, "result of init with config file: " + VcxApi.vcxErrorCMessage(result));
             } catch (InterruptedException | ExecutionException | VcxException e) {
                 e.printStackTrace();
             }

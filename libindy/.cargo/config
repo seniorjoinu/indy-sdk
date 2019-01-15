@@ -1,0 +1,3 @@
+[target.aarch64-linux-android]
+ar = "/tmp/android_build/toolchains/linux/arm64/bin/aarch64-linux-android-ar"
+linker = "/tmp/android_build/toolchains/linux/arm64/bin/aarch64-linux-android-clang"
