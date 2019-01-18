@@ -15,7 +15,7 @@ from vcx.state import State
 # logging.basicConfig(level=logging.DEBUG) uncomment to get logs
 
 provisionConfig = {
-    'agency_url': 'http://localhost:8080',
+    'agency_url': 'http://10.255.255.20:8080',
     'agency_did': 'VsKV7grR1BUE29mG2Fm2kX',
     'agency_verkey': 'Hezce2UWMZ3wUhVkh2LfKSs8nDzWwzs2Win7EzNN3YaR',
     'wallet_name': 'alice_wallet',

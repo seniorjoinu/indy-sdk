@@ -47,15 +47,30 @@ pub extern fn vcx_issuer_create_credential(command_handle: u32,
                                       credential_name: *const c_char,
                                       price: *const c_char,
                                       cb: Option<extern fn(xcommand_handle: u32, err: u32, credential_handle: u32)>) -> u32 {
-    info!("vcx_issuer_create_credential >>>");
+
+    info!("vcx_issuer_create_credential >>> 1");
 
     check_useful_c_callback!(cb, error::INVALID_OPTION.code_num);
+
+    info!("vcx_issuer_create_credential >>> 2");
+
     check_useful_c_str!(credential_data, error::INVALID_OPTION.code_num);
+
+    info!("vcx_issuer_create_credential >>> 3");
+
     check_useful_c_str!(credential_name, error::INVALID_OPTION.code_num);
+
+    info!("vcx_issuer_create_credential >>> 4");
+
     check_useful_c_str!(source_id, error::INVALID_OPTION.code_num);
+
+    info!("vcx_issuer_create_credential >>> 5");
+
     check_useful_c_str!(price, error::INVALID_OPTION.code_num);
 
-    let issuer_did: String = if !issuer_did.is_null() {
+    info!("vcx_issuer_create_credential >>> 6");
+
+    let issuer_did = if !issuer_did.is_null() {
         check_useful_c_str!(issuer_did, error::INVALID_OPTION.code_num);
         issuer_did.to_owned()
     } else {
@@ -65,10 +80,14 @@ pub extern fn vcx_issuer_create_credential(command_handle: u32,
         }
     };
 
+    info!("vcx_issuer_create_credential >>> 7");
+
     let price: u64 = match price.parse::<u64>() {
         Ok(x) => x,
         Err(_) => return error::INVALID_OPTION.code_num,
     };
+
+    info!("vcx_issuer_create_credential >>> 8");
 
     if !::credential_def::is_valid_handle(cred_def_handle) {
         return error::INVALID_CREDENTIAL_DEF_HANDLE.code_num;

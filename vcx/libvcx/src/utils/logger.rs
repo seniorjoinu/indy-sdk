@@ -151,6 +151,7 @@ impl LibvcxDefaultLogger {
         trace!("LibvcxDefaultLogger::init >>> pattern: {:?}", pattern);
 
         let pattern = pattern.or(env::var("RUST_LOG").ok());
+        libindy::logger::set_default_logger(pattern.as_ref().map(String::as_str))
         if cfg!(target_os = "android") {
             #[cfg(target_os = "android")]
             let log_filter = match pattern {
@@ -186,7 +187,6 @@ impl LibvcxDefaultLogger {
                 }
             }
         }
-        libindy::logger::set_default_logger(pattern.as_ref().map(String::as_str))
     }
 
     extern fn enabled(_context: *const CVoid,

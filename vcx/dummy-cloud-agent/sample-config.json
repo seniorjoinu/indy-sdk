@@ -5,14 +5,14 @@
   "forward_agent": {
     "did": "VsKV7grR1BUE29mG2Fm2kX",
     "did_seed": "0000000000000000000000000Forward",
-    "endpoint": "http://localhost:8080",
+    "endpoint": "http://10.255.255.20:8080",
     "wallet_id": "forward_agent_wallet_id",
     "wallet_passphrase": "forward_agent_wallet_passphrase"
   },
   "server": {
     "addresses": [
-      "127.0.0.1:8080",
-      "127.0.0.1:8081"
+      "10.255.255.20:8080",
+      "10.255.255.20:8081"
     ],
     "workers": 2
   },
