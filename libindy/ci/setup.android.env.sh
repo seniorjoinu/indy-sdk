@@ -205,6 +205,8 @@ set_env_vars(){
     export RUST_TEST_THREADS=1
     export RUST_BACKTRACE=1
     export OPENSSL_DIR=${OPENSSL_DIR}
+    export OPENSSL_LIB_DIR=${OPENSSL_DIR}/lib
+    export OPENSSL_INCLUDE_DIR=${OPENSSL_DIR}/include
     export SODIUM_LIB_DIR=${SODIUM_DIR}/lib
     export SODIUM_INCLUDE_DIR=${SODIUM_DIR}/include
     export LIBZMQ_LIB_DIR=${LIBZMQ_DIR}/lib

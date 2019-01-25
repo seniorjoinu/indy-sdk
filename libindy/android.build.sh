@@ -147,7 +147,7 @@ package_library(){
 }
 
 build(){
-    echo "**************************************************"
+    echo "********************* LIBINDY ********************"
     echo "Building for architecture ${BOLD}${YELLOW}${ABSOLUTE_ARCH}${RESET}"
     echo "Toolchain path ${BOLD}${YELLOW}${TOOLCHAIN_DIR}${RESET}"
     echo "ZMQ path ${BOLD}${YELLOW}${LIBZMQ_DIR}${RESET}"

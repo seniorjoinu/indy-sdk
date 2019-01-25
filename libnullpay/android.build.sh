@@ -13,7 +13,7 @@ export RESET=`tput sgr0`
 
 set -e
 
-WORKDIR="$( cd "$(dirname "$0")" ; pwd -P )"
+WORKDIR=${PWD}
 CI_DIR="${WORKDIR}/../libindy/ci"
 export ANDROID_BUILD_FOLDER="/tmp/android_build"
 DOWNLOAD_PREBUILTS="0"
@@ -44,6 +44,15 @@ ar = "$(realpath ${AR})"
 linker = "$(realpath ${CC})"
 EOF
 }
+
+normalize_dir(){
+    case "$1" in
+    /*) echo "$1";;
+    ~/*) echo "$1";;
+    *) echo "$(pwd)/$1";;
+    esac
+}
+
 setup_dependencies(){
    if [ "${DOWNLOAD_PREBUILTS}" == "1" ]; then
         download_and_unzip_dependencies ${ABSOLUTE_ARCH}
@@ -117,6 +126,22 @@ package_library(){
         fi
 
     popd
+}
+
+statically_link_dependencies_with_libindy(){
+    echo "${BLUE}Statically linking libraries togather${RESET}"
+    echo "${BLUE}Output will be available at ${ANDROID_BUILD_FOLDER}/libindy_${ABSOLUTE_ARCH}/lib/libindy.so${RESET}"
+    $CC -v -shared -o${ANDROID_BUILD_FOLDER}/libindy_${ABSOLUTE_ARCH}/lib/libindy.so -Wl,--whole-archive \
+        ${WORKDIR}/target/${TRIPLET}/release/libindy.a \
+        ${TOOLCHAIN_DIR}/sysroot/usr/${TOOLCHAIN_SYSROOT_LIB}/libz.so \
+        ${TOOLCHAIN_DIR}/sysroot/usr/${TOOLCHAIN_SYSROOT_LIB}/libm.a \
+        ${TOOLCHAIN_DIR}/sysroot/usr/${TOOLCHAIN_SYSROOT_LIB}/liblog.so \
+        ${OPENSSL_DIR}/lib/libssl.a \
+        ${OPENSSL_DIR}/lib/libcrypto.a \
+        ${SODIUM_LIB_DIR}/libsodium.a \
+        ${LIBZMQ_LIB_DIR}/libzmq.a \
+        ${TOOLCHAIN_DIR}/${ANDROID_TRIPLET}/${TOOLCHAIN_SYSROOT_LIB}/libgnustl_shared.so \
+        -Wl,--no-whole-archive -z muldefs
 }
 
 build(){

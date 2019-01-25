@@ -151,10 +151,9 @@ impl LibvcxDefaultLogger {
         trace!("LibvcxDefaultLogger::init >>> pattern: {:?}", pattern);
 
         let pattern = pattern.or(env::var("RUST_LOG").ok());
-        libindy::logger::set_default_logger(pattern.as_ref().map(String::as_str))
         if cfg!(target_os = "android") {
             #[cfg(target_os = "android")]
-            let log_filter = match pattern {
+                let log_filter = match pattern.clone() {
                 Some(val) => match val.to_lowercase().as_ref() {
                     "error" => Filter::default().with_min_level(log::Level::Error),
                     "warn" => Filter::default().with_min_level(log::Level::Warn),
@@ -168,7 +167,7 @@ impl LibvcxDefaultLogger {
 
             //Set logging to off when deploying production android app.
             #[cfg(target_os = "android")]
-            android_logger::init_once(log_filter);
+                android_logger::init_once(log_filter);
             info!("Logging for Android");
         } else {
             // This calls
@@ -187,6 +186,8 @@ impl LibvcxDefaultLogger {
                 }
             }
         }
+        libindy::logger::set_default_logger(pattern.as_ref().map(String::as_str))
+
     }
 
     extern fn enabled(_context: *const CVoid,

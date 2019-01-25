@@ -6,7 +6,7 @@ build = "build.rs"
 
 [lib]
 name = "nullpay"
-crate-type = ["staticlib","cdylib", "rlib"]
+crate-type = ["cdylib"]
 
 [features]
 # Causes the build to fail on all warnings
@@ -29,3 +29,12 @@ indy = { version="1.6.7", path="../wrappers/rust" }
 
 [target.'cfg(target_os = "android")'.dependencies]
 android_logger = "0.5"
+
+[profile.dev]
+opt-level = 0
+debug = true
+rpath = false
+lto = false
+debug-assertions = true
+codegen-units = 1
+incremental = false
