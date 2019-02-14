@@ -1,5 +1,7 @@
 apply plugin: 'java'
-group = "org.hyperledger"
+apply plugin: 'maven'
+
+group = 'com.github.seniorjoinu'
 
 repositories {
 
