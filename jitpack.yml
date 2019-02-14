@@ -1,3 +1,4 @@
 install:
   - cd wrappers/java
   - gradle clean assemble
+  - cp -r build ../..
