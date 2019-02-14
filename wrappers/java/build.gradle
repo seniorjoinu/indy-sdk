@@ -1,0 +1,33 @@
+apply plugin: 'java'
+group = "org.hyperledger"
+
+repositories {
+
+    maven { url "http://repo.maven.apache.org/maven2" }
+    maven {
+        url "https://maven.google.com"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
+    }
+}
+
+dependencies {
+    implementation "net.java.dev.jna:jna:4.5.0"
+    implementation "org.apache.commons:commons-lang3:3.5"
+    implementation "org.json:json:20180130"
+    implementation "org.slf4j:slf4j-api:1.8.0-beta1"
+
+    testImplementation "junit:junit:4.12"
+    testImplementation "commons-io:commons-io:2.5"
+    testImplementation "org.bitcoinj:bitcoinj-core:0.14.4"
+    testImplementation "org.slf4j:slf4j-log4j12:1.8.0-alpha2"
+    testImplementation "log4j:log4j:1.2.17"
+}
